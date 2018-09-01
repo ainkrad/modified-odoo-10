@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="inherited_account_invoice_view" model="ir.ui.view">
+            <field name="name">inherited account invoice view</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='action_invoice_cancel']" position="after">
+                    <!-- Add your fields or attributes here -->
+                    <button type="object" name="print_ledger" string="Print Ledger" colspan="2" class="oe_highlight"/>
+                    <!--attrs="{'invisible':['|', ('state','=','draft'), '|', ('state', '=', 'done'),('state', '=', 'cancel')]}">-->
+                    <!--</button>-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

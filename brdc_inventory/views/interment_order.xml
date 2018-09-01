@@ -1,0 +1,227 @@
+<odoo>
+    <data>
+        <!--<record model="ir.ui.view" id="resource_kanban_view">-->
+            <!--<field name="name">inherited kanban interment order2</field>-->
+            <!--<field name="model">interment.order2</field>-->
+            <!--<field name="type">kanban</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<kanban edit="false" quick_create="false">-->
+                    <!--<templates>-->
+                        <!--<t t-name="kanban-box">-->
+                            <!--<div class="oe_resource_vignette">-->
+                                <!--<div class="oe_resource_image">-->
+                                    <!--<a type="edit"><img t-att-src="kanban_image('object.name', 'photo', record.id.value)" class="oe_resource_picture"/></a>-->
+                                <!--</div>-->
+                                <!--<div class="oe_resource_details">-->
+                                    <!--<ul>-->
+                                        <!--&lt;!&ndash;Here you have to write the object's field name which you want to display in kanban view &ndash;&gt;-->
+                                       <!--<li><field name="interment_td"/></li>-->
+                                       <!--<li><field name="state"/></li>-->
+                                     <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</t>-->
+                    <!--</templates>-->
+                <!--</kanban>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="interment_order_tree" model="ir.ui.view">
+            <field name="name">Interment Order</field>
+            <field name="model">interment.order2</field>
+            <field name="arch" type="xml">
+                <tree string="Interment Order" create="false">
+                    <!--<field>OR Number</field>-->
+                    <!--<field name="departed_id"/>-->
+                    <field name="lot_id"/>
+                    <!--<field name="lot_owner"/>-->
+                    <field name="interment_td"/>
+                    <field name="informant_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="interment_order_view" model="ir.ui.view">
+            <field name="name">Interment Order</field>
+            <field name="model">interment.order2</field>
+            <field name="arch" type="xml">
+                <form string="Interment Order">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="confirmed,done"/>
+                        <button name="action_confirm" type="object"
+                                string="Confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                        <!--<button name="" string="" class="oe_highlight" states="" type=""/>-->
+                        <!--<field name="state" widget="statusbar" statusbar_visible="" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>-->
+                    </header>
+                    <sheet string="Interment Order">
+                        <group>
+                            <group string="Interment Details">
+                                <field name="interment_td" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="interment_lang" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'readonly':[('state', '=', 'done')]}"/>
+                            </group>
+                            <group string="Mass Details">
+                                <field name="mass_td" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="mass_loc" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                            </group>
+                            <group string="Lot Details">
+                                <field name="product_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                       attrs="{'readonly':True}"/>
+                                <field name="lot_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                       domain="[('product_id','=',product_id),('status','in',['fp','wit'])]"
+                                       attrs="{'readonly':True}"/>
+                                <!--<field name="lot_owner" attrs="{'readonly':True}"/>-->
+                            </group>
+                            <group string="Remarks">
+                                <field name="informant_id" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                <field name="contact_number" attrs="{'readonly':True}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Interment Information">
+                                <group>
+                                    <group>
+                                        <!--<field name="or_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                                        <!--attrs="{'readonly':[('state', '!=', 'confirmed')]}"-->
+                                        <field name="or_id" domain="['|',('is_interment','=',True),('is_crematory','=',True), ('is_used','=',False)]"/>
+                                        <!--domain="[('state','=', 'reconciled')]"/>-->
+                                    </group>
+                                    <group>
+                                        <field name="inter_type" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                        <!--<field name="nature_of_interment" attrs="{'invisible':[('inter_type', '=', 'bt')]}"/>-->
+                                    </group>
+                                    <!--<field name="deceased_id" string=" " widget="many2many">-->
+                                    <field name="deceased_id" string=" " widget="many2many" attrs="{'readonly':[('state', '=', 'done')]}">
+                                        <tree>
+                                            <field name="departed_id"/>
+                                            <field name="date_of_death"/>
+                                            <field name="date_of_birth"/>
+                                            <field name="religion"/>
+                                            <field name="n_of_interment"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Informants Details" name="informant_data">
+                                <group>
+                                    <group>
+                                        <field name="relationship_departed" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="fb_account" widget="url" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Other Information" name="other_info">
+                                <group>
+                                    <group>
+                                        <!--<field name="requested_songs"/>-->
+                                        <field name="message" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="casket_size" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                        <field name="wake_address" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                </group>
+                                <field name="song_ids" string=" " widget="many2many"  attrs="{'readonly':[('state', '=', 'done')]}">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Marble Marker Details" name="marble_marker_info">
+                                <group>
+                                    <group string="Name of Deceased">
+                                        <field name="fname" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                        <field name="mname" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                        <field name="lname" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string=" ">
+                                        <field name="d_of_d" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                    <group string=" ">
+                                        <field name="d_of_b" attrs="{'readonly':[('state', '=', 'done')]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="interment_order_calendar" model="ir.ui.view">-->
+            <!--<field name="model">interment.order2</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<calendar date_start="interment_td" mode="month" quick_add="False">-->
+                    <!--<field name="lot_id"/>-->
+                <!--</calendar>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash;moved to sale order&ndash;&gt;lies!-->
+        <record id="interment_order_action" model="ir.actions.act_window">
+            <field name="name">Interment Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.order2</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <!--new-->
+            <!--<field name="flags">{'tree': {'action_buttons': True}}</field>-->
+            <field name="context">{'default_or_id': active_id}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+
+        <record id="interment_order_action2" model="ir.actions.act_window">
+            <field name="name">Interment Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">interment.order2</field>
+            <field name="context">{'group_by':'state'}</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <!--<field name="view_mode">calendar,tree,form</field>-->
+            <field name="target">current</field>
+            <!--<field name="flags">{'tree': {'action_buttons': True}}</field>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+
+
+        <record id="song_request_form" model="ir.ui.view">
+            <field name="name">song.request.form</field>
+            <field name="model">song.request</field>
+            <field name="arch" type="xml">
+                <form string="Song Requests">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

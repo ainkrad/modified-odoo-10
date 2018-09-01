@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sold_lots_per_report_paperformat_custom" model="report.paperformat">
+            <field name="name">Sold Lots</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">300</field>
+        </record>
+
+        <report
+                id="sold_lots_per_report"
+                model="sale.order"
+                report_type="qweb-pdf"
+                string="Sold Lots"
+                name="brdc_inventory.sold_lots_per_view"
+                file="brdc_inventory.sold_lots_per"
+                paperformat="sold_lots_per_report_paperformat_custom"
+                menu="True"
+        />
+
+        <template id="sold_lots_per_view" >
+            <t t-call="report.html_container">
+                <!--<t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="d">
+                    <div class="page">
+                        <style type="text/css">
+                            div {
+                            //border:1px solid;
+                            padding:2 px;
+                            }
+                            table {
+                            width:100%;
+                            page-break-inside:auto;
+                            font-size: 10 px;
+                            //empty-cells: show;
+                            }
+                            .ulo {
+                            display:table;
+                            width:100%;
+                            height:100px;
+                            }
+                            .l_img {
+                            display: table-cell;
+                            }
+                            .c_cont {
+                            display: table-cell;
+                            }
+                            .c_cont h5 {
+                            text-align:center;
+                            font-weight:bold;
+                            margin-bottom:0px;
+                            }
+                            .c_cont p {
+                            text-align:center;
+                            font-size:10px;
+                            margin-top:0px;
+                            }
+                            .r_img {
+                            display: table-cell;
+                            }
+                            .tthead h5 {
+                            font-weight: bold;
+                            margin-bottom:0px;
+                            }
+                            .tthead  h5,p{
+                            text-align: center;
+                            }
+                            .parent_infhead {
+                            display: table;
+                            width: 100%;
+                            }
+                            .r_infhead ,.l_infhead{
+                            display: table-cell;
+                            }
+                            .thead th{
+                            //text-align:center;
+                            padding:2 2 2 0 px;
+                            border-bottom: 1px solid;
+                            }
+                            .l_align {
+                            text-align:left;
+                            }
+                            .r_align {
+                            text-align:right;
+                            }
+                            .c_align {
+                            text-align:center;
+                            }
+                            tr {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            }
+                            td {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            padding:1 1 1 0 px;
+                            margin:1 px;
+                            }
+                            tr:first-child {
+                            border-top: 2px solid ;
+                            border-bottom: 1px solid ;
+                            }
+                            tr:last-child {
+                            //border-top: 1px solid ;
+                            }
+                            .bord_bold {
+                            border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            font-weight: bold;
+                            }
+                            .r_bold {
+                            text-align:right;
+                            font-weight: bold;
+                            }
+                            .l_bold {
+                            text-align:left;
+                            font-weight: bold;
+                            }
+                            .c_bold {
+                            text-align:center;
+                            font-weight: bold;
+                            }
+                            .bord_top {
+                            //border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            }
+                            .bord_bot {
+                            border-bottom:1 px solid;
+                            //border-top:1 px solid;
+                            }
+                        </style>
+                        <div class="ulo">
+                        </div>
+                        <div class="parent_infhead">
+                            <div class="r_infhead r_align">
+                                Date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')"/><br/>
+                            </div>
+                        </div>
+                        <div class="tthead">
+                            <h5>Sold Lots</h5>
+                            <t t-if="d.from_date==d.to_date">
+                                <p><span t-esc="d.from_date"/></p>
+                            </t>
+                            <t t-else="">
+                                <p><span t-esc="d.from_date"/> to <span t-esc="d.to_date"/></p>
+                            </t>
+
+                        </div>
+                        <div class="tb_cont">
+                            <table class="table table-condensed">
+                                <tr class="thead">
+                                    <th class="l_align">PA</th>
+                                    <th class="l_align">Customer</th>
+                                    <th class="l_align">Product</th>
+                                    <th class="c_align">Lot</th>
+                                    <th class="l_align">Contract Price</th>
+                                    <th>Payment Term</th>
+                                    <th>Transaction Date</th>
+                                    <th>Sales Agent</th>
+                                </tr>
+
+                                <t t-foreach="recs" t-as="d">
+                                    <tr class="tcont tcont_b">
+                                        <td class="c_align f_b l_s_w"><span t-esc="d.pa_ref"/></td>
+                                        <td class="l_align f_b cp_w"><span t-field="d.partner_id.name"/></td>
+                                        <td class="r_align f_b a_w"><span t-field="d.order_line[0].product_id"/></td>
+                                        <td class="c_align f_b a_w"><span t-field="d.order_line[0].lot_id"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.amount_total"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.new_payment_term_id.name"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.confirmation_date"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.agent_id.name"/></td>
+                                    </tr>
+                                </t>
+                            </table>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

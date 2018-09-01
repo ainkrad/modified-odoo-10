@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+
+        <record id="lot_generator_handler_view_tree" model="ir.ui.view">
+            <field name="name">Lot / Niches Generator</field>
+            <field name="model">lot.generator</field>
+            <field name="arch" type="xml">
+                <tree string="Lot / Niche Generator">
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="lot_generator_handler_view_form" model="ir.ui.view">
+            <field name="name">Lot / Niches Generator</field>
+            <field name="model">lot.generator</field>
+            <field name="arch" type="xml">
+                <form string="Lot / Niche Generator">
+                    <header>
+                        <button name="action_generate" type="object"
+                                string="Generate" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_create" type="object"
+                                string="Create" states="gen"
+                                class="oe_highlight"/>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="gen"/>
+                        <field name="state" widget="statusbar"/>
+                        <!--<button name="" string="" class="oe_highlight" states="" type=""/>-->
+                        <!--<field name="state" widget="statusbar" statusbar_visible="" statusbar_colors="{'KEY_IS_STATE':'VALUE_IS_COLOR'}"/>-->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="product_id" attrs="{'readonly':[ ('state','!=', 'draft')]}"/>
+                            </group>
+                            <group>
+                                <field name="no_of_blocks" attrs="{'readonly':[ ('state','!=', 'draft')]}"/>
+                                <field name="no_of_lots" attrs="{'readonly':[ ('state','!=', 'draft')]}"/>
+                            </group>
+                        </group>
+                            <field name="lot_temp_id" widget="many2many">
+                                <tree create="false">
+                                    <field name="block_no"/>
+                                    <field name="lot_no"/>
+                                    <field name="status" widget="selection"/>
+                                    <field name="partner_id"/>
+                                </tree>
+                            </field>
+                        <!--<footer>-->
+                            <!--<button name="print_general_aging_report"-->
+                                        <!--string="Print"-->
+                                        <!--type="object"-->
+                                        <!--class="btn-primary"/>-->
+
+                            <!--<button string="Cancel" special="cancel" class="btn-default"/>-->
+                        <!--</footer>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="lot_temp_view_form" model="ir.ui.view">
+            <field name="name">lot temp</field>
+            <field name="model">lot.temp</field>
+            <field name="arch" type="xml">
+                <form string=" ">
+                    <sheet>
+                        <group>
+                            <field name="block_no" attrs="{'readonly':True}"/>
+                            <field name="lot_no" attrs="{'readonly':True}"/>
+                        </group>
+                        <group>
+                            <field name="status"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="lot_generator_handler_view_action" model="ir.actions.act_window">
+            <field name="name">lot generator handler</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lot.generator</field>
+            <!--<field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+			<field name="target">current</field>
+        </record>
+
+        <!--<menuitem id="lot_generator_handler_id" action="lot_generator_handler_view_action"-->
+                  <!--parent="stock.menu_stock_inventory_control" name="Lot / Niche Generator"/>-->
+
+    </data>
+</odoo>

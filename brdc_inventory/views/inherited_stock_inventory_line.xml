@@ -1,0 +1,22 @@
+<odoo>
+    <data>
+        <record id="inherited_stock_inventory_form_view" model="ir.ui.view">
+            <field name="name">inherited stock inventory form view</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_done']" position="after">
+                    <button type="object" name="import_serials" string="Import" colspan="2" class="oe_highlight"
+                            attrs="{'invisible':['|', ('state','!=','confirm'),('filter','not in',['none','product'])]}"/>
+                </xpath>
+
+                <xpath expr="//button[@name='prepare_inventory']" position="replace">
+                    <!-- Add your fields or attributes here -->
+                    <button name="prepare_inventory" states="draft" string="Start Inventory" type="object" class="oe_highlight" groups="stock.group_stock_user,brdc_security.brdc_group_adjustment"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

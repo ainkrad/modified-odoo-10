@@ -1,0 +1,75 @@
+<odoo>
+    <data>
+        <record id="general_aging_of_receivables_tree" model="ir.ui.view">
+            <field name="name">general aging of receivables</field>
+            <field name="model">general.aging</field>
+            <field name="arch" type="xml">
+                <tree string="Aging of Receivables" create="false">
+                    <!--<button name="get_days_passed" string="Compute all" class="oe_highlight " type="object"/>-->
+                    <field name="so_num"/>
+                    <field name="date_start"/>
+                    <field name="partner_name"/>
+                    <field name="contract_price"/>
+                    <field name="principal_payment"/>
+                    <field name="balance"/>
+                    <field name="total_due_payment"/>
+                    <field name="current_due_payment"/>
+                    <field name="o_to_t"/>
+                    <field name="t_to_s"/>
+                    <field name="s_to_n"/>
+                    <field name="n_a_o"/>
+                    <!--<field name="days_passed"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="general_aging_of_receivables_form" model="ir.ui.view">
+            <field name="name">general aging of receivables form</field>
+            <field name="model">general.aging</field>
+            <field name="arch" type="xml">
+                <form string="Aging of Receivables" create="false" edit="false">
+                <!--<header>-->
+                    <!--<button name="get_days_passed" string="Generate" class="oe_highlight " type="object"/>-->
+                <!--</header>-->
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="so_num"/>
+                                <field name="date_start"/>
+                                <field name="partner_name"/>
+                                <field name="contract_price"/>
+                                <field name="principal_payment"/>
+                                <field name="balance"/>
+                            </group>
+                            <group>
+                                <field name="total_due_payment"/>
+                                <field name="current_due_payment"/>
+                                <field name="o_to_t"/>
+                                <field name="t_to_s"/>
+                                <field name="s_to_n"/>
+                                <field name="n_a_o"/>
+                                <field name="days_passed"/>
+                                <field name="date_today"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="general_aging_of_receivables_action" model="ir.actions.act_window">
+            <field name="name">Aging of Receivables</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">general.aging</field>
+            <field name="view_mode">pivot,tree,form</field>
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

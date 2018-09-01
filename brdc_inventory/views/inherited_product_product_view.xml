@@ -1,0 +1,49 @@
+<odoo>
+    <data>
+        <record id="inherited_product_product_form" model="ir.ui.view">
+            <field name="name">inherited product product form</field>
+            <field name="model">product.product</field>
+            <!--<field name="model">product.brdc.product</field>-->
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='default_code']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='type']" position="replace">
+                    <field name="type" default_focus="1"/>
+                </xpath>
+                <xpath expr="//field[@name='purchase_method']" position="replace">
+                </xpath>
+                <!--<xpath expr="//field[@name='tracking']" position="replace">-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='lst_price']" position="before">
+                    <field name="default_code"/>
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="area_number" attrs="{'invisible':[('type','!=','product')]}"/>
+                    <field name="grave_type" attrs="{'invisible':True}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='lst_price']" position="attributes">
+                    <attribute name="string">Selling Price</attribute>
+                </xpath>
+                <xpath expr="//field[@name='barcode']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='weight']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='weight']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='volume']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='volume']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

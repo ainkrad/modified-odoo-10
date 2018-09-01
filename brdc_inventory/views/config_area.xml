@@ -1,0 +1,93 @@
+<odoo>
+    <data>
+        <!--<record id="block_serial_tree" model="ir.ui.view">-->
+            <!--<field name="name">Block</field>-->
+            <!--<field name="model">block.serial</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Number of Lots">-->
+                    <!--<field name="area_id" attrs="{'invisible':True}"/>-->
+                    <!--<field name="block_number"/>-->
+                    <!--<field name="lot_number"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="block_serial_view" model="ir.ui.view">-->
+            <!--<field name="name">Block</field>-->
+            <!--<field name="model">block.serial</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Block">-->
+                    <!--<sheet>-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<field name="area_id" attrs="{'invisible':True}"/>-->
+                                <!--<field name="block_number" attrs="{'readonly':True}"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="lot_number"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <record id="config_area_tree" model="ir.ui.view">
+            <field name="name">Area</field>
+            <field name="model">config.area</field>
+            <field name="arch" type="xml">
+                <tree string="Area Tree">
+                    <field name="name"/>
+                    <!--<field name="num_of_blocks"/>-->
+                    <!--<field name="num_of_lots"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="config_area_view" model="ir.ui.view">
+            <field name="name">Area</field>
+            <field name="model">config.area</field>
+            <field name="arch" type="xml">
+                <form string="Area View">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group><group></group>
+                            <!--<group>-->
+                                <!--<field name="num_of_blocks"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="num_of_lots"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<button type="object" name="set_blocks" string="Generate" colspan="2" class="oe_highlight" />-->
+                            <!--</group>-->
+                        </group>
+
+                        <!--<field name="block_line_ids" string="Block" editable="top">-->
+                            <!--<tree string="Area and Blocks">-->
+                                <!--<field name="block_number"/>-->
+                                <!--<field name="lot_number"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="config_area_action" model="ir.actions.act_window">
+            <field name="name">Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">config.area</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->Add an Area
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

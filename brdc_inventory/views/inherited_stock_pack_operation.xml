@@ -1,0 +1,44 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherited_stock_pack_operation_view" model="ir.ui.view">
+            <field name="name">inherited stock pack operation view</field>
+            <field name="model">stock.pack.operation</field>
+            <field name="inherit_id" ref="stock.view_pack_operation_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pack_lot_ids']" position="replace">
+                        <field name="pack_lot_ids" nolabel="1" attrs="{'readonly': [('state', '=', 'done')]}">
+                            <tree editable="bottom" decoration-success="qty_todo==qty" decoration-danger="(qty_todo &gt; 0) and (qty&gt;qty_todo)">
+                                <field name="lot_name" invisible="not context.get('only_create', False)"/>
+                                <field name="lot_id" invisible="context.get('only_create', False)"
+                                       domain="[('product_id','=', parent.product_id),('status','=', 'av')]"
+                                       context="{'default_product_id': parent.product_id, 'active_pack_operation': parent.id}"/>
+                                <field name="qty_todo" invisible="not context.get('show_reserved') or context.get('serial') or context.get('state_done')" readonly="1"/>
+                                <field name="qty" invisible="context.get('serial')"/>
+                                <button name="do_minus" type="object" icon="fa-minus-square" attrs="{'invisible': [('qty', '&lt;=', 0.99)]}" invisible="not context.get('show_reserved') or context.get('state_done')"/>
+                                <button name="do_plus" type="object" icon="fa-plus-square" attrs="{'invisible': [('plus_visible', '=', False)]}" invisible="not context.get('show_reserved') or context.get('state_done')"/>
+                                <field name="plus_visible" invisible="1"/>
+                            </tree>
+                        </field>
+                </xpath>
+                <!--<xpath expr="//footer/button[@name='save']" position="after">-->
+                <!--<button type="object" name="validate_inv" string="Set Lot" colspan="2" class="oe_highlight"/>-->
+                <!--</xpath>-->
+
+            </field>
+        </record>
+        <record id="inherited_stock_picking_view" model="ir.ui.view">
+            <field name="name">inherited stock picking view</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[@name='do_new_transfer']" position="after">
+                    <button type="object" name="set_lot" string="Set Lot / Vault" colspan="2" class="oe_highlight"
+                            attrs="{'invisible':['|', ('state','=','draft'), '|', ('state', '=', 'done'),('state', '=', 'cancel')]}">
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

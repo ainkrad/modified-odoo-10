@@ -1,0 +1,155 @@
+<odoo>
+    <data>
+        <record id="dimension_config_tree" model="ir.ui.view">
+            <field name="name">Dimension</field>
+            <field name="model">oi.dimension</field>
+            <field name="arch" type="xml">
+                <tree string="Dimension">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="no_of_lot_config_tree" model="ir.ui.view">
+            <field name="name">Number of Lots</field>
+            <field name="model">oi.no_of_lots</field>
+            <field name="arch" type="xml">
+                <tree string="Number of Lots">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="casket_size_config_tree" model="ir.ui.view">
+            <field name="name">Casket Sizes</field>
+            <field name="model">oi.casket_sizes</field>
+            <field name="arch" type="xml">
+                <tree string="Casket Sizes">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="program_lang_config_tree" model="ir.ui.view">
+            <field name="name">Program Language</field>
+            <field name="model">oi.program_lang</field>
+            <field name="arch" type="xml">
+                <tree string="Program Language">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="dimension_config_view" model="ir.ui.view">
+            <field name="name">Dimension</field>
+            <field name="model">oi.dimension</field>
+            <field name="arch" type="xml">
+                <form string="Dimension">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="no_of_lot_config_view" model="ir.ui.view">
+            <field name="name">Number of Lots</field>
+            <field name="model">oi.no_of_lots</field>
+            <field name="arch" type="xml">
+                <form string="Number of Lots">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="casket_sizes_config_view" model="ir.ui.view">
+            <field name="name">Casket Sizes</field>
+            <field name="model">oi.casket_sizes</field>
+            <field name="arch" type="xml">
+                <form string="Casket Sizes">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="program_lang_config_view" model="ir.ui.view">
+            <field name="name">Program Language</field>
+            <field name="model">oi.program_lang</field>
+            <field name="arch" type="xml">
+                <form string="Program Language">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="dimension_config_action" model="ir.actions.act_window">
+            <field name="name">Dimension</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">oi.dimension</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->Add Dimensions here
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="no_of_lot_config_action" model="ir.actions.act_window">
+            <field name="name">Number of Lots</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">oi.no_of_lots</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->Add Number of Lots here
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="casket_sizes_config_action" model="ir.actions.act_window">
+            <field name="name">Casket Sizes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">oi.casket_sizes</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->Add Casket Sizes here
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+
+        <record id="program_lang_config_action" model="ir.actions.act_window">
+            <field name="name">Program Language</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">oi.program_lang</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->Add Program Languages here
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

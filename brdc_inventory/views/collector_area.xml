@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="collector_area_form" model="ir.ui.view">
+            <field name="name">Collector Area Form</field>
+            <field name="model">collector.area</field>
+            <field name="arch" type="xml">
+                <form string="Collector Area">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="barangay_id" widget="many2many_tags">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="barangay_code"/>
+                                        <field name="municipality_id"/>
+                                    </tree>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="partner_id" widget="many2many_tags">
+                                    <tree>
+                                        <field name="name"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="collector_area_action" model="ir.actions.act_window">
+            <field name="name">Collector Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">collector.area</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->Configure designated area per collector here
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+
+        <!--<menuitem id="collector_area_id" action="collector_area_action"-->
+                  <!--parent="configuration_control_categ" name="Collector Area designation"/>-->
+
+    </data>
+</odoo>

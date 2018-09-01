@@ -1,0 +1,17 @@
+id,name,parent_id/id
+__export__.product_category_3,Lawn Lots,
+__export__.product_category_4,Premium,__export__.product_category_3
+__export__.product_category_6,Regular,__export__.product_category_3
+__export__.product_category_5,Super Premium,__export__.product_category_3
+__export__.product_category_7,Mausoleum,
+__export__.product_category_8,Mini-Mausoleum,
+__export__.product_category_9,Mini-Garden,
+__export__.product_category_10,Garden,
+__export__.product_category_11,Interment Services,
+__export__.product_category_12,Weekdays,__export__.product_category_11
+__export__.product_category_13,Weekends & Holidays,__export__.product_category_11
+__export__.product_category_14,Columbarium,
+__export__.product_category_15,Community Vault,
+__export__.product_category_16,Montecielo Memorial Gold,
+__export__.product_category_17,Cremation,
+__export__.product_category_18,Columbarium,__export__.product_category_11

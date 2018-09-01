@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <record id="employee_hierarchy_tree" model="ir.ui.view">
+            <field name="name">employee hierarchy tree</field>
+            <field name="model">employee.hierarchy</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Commission">
+                    <field name="name"/>
+                    <field name="comm_percent"/>
+                </tree>
+            </field>
+        </record>
+        <record id="employee_hierarchy_view" model="ir.ui.view">
+            <field name="name">employee hierarchy view</field>
+            <field name="model">employee.hierarchy</field>
+            <field name="arch" type="xml">
+                <form string="Employee Commission Configuration">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="comm_percent"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="employee_hierarchy_action" model="ir.actions.act_window">
+            <field name="name">Employee Commission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">employee.hierarchy</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->Configure Employee Commission here
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

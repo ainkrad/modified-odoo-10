@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+
+        <record id="main_area_13" model="config.area">
+            <field name="name">Daisy</field>
+        </record>
+        <record id="main_area_7" model="config.area">
+            <field name="name">Zinnia</field>
+        </record>
+        <record id="main_area_8" model="config.area">
+            <field name="name">Azalea</field>
+        </record>
+        <record id="main_area_9" model="config.area">
+            <field name="name">Olive</field>
+        </record>
+        <!--<record id="main_area_16" model="config.area">-->
+            <!--<field name="name">16</field>-->
+        <!--</record>-->
+
+        <record id="main_grave_type_ll" model="grave_type.list">
+            <field name="name">Lawn Lot</field>
+        </record>
+        <record id="main_grave_type_cv" model="grave_type.list">
+            <field name="name">Community Vault</field>
+        </record>
+        <record id="main_grave_type_i" model="grave_type.list">
+            <field name="name">Interment Fee</field>
+        </record>
+        <record id="main_grave_type_r" model="grave_type.list">
+            <field name="name">Regular</field>
+        </record>
+        <record id="main_grave_type_p" model="grave_type.list">
+            <field name="name">Premium</field>
+        </record>
+        <record id="main_grave_type_fb" model="grave_type.list">
+            <field name="name">Fresh Body</field>
+        </record>
+        <record id="main_grave_type_b" model="grave_type.list">
+            <field name="name">Bone</field>
+        </record>
+        <!--<record id="main_grave_type_col" model="grave_type.list">-->
+            <!--<field name="name">Columbarium</field>-->
+        <!--</record>-->
+        <!--<record id="main_grave_type_g" model="grave_type.list">-->
+            <!--<field name="name">Garden</field>-->
+        <!--</record>-->
+        <!--<record id="main_grave_type_mg" model="grave_type.list">-->
+            <!--<field name="name">Mini Garden</field>-->
+        <!--</record>-->
+        <!--<record id="main_grave_type_m" model="grave_type.list">-->
+            <!--<field name="name">Mausoleum</field>-->
+        <!--</record>-->
+        <!--<record id="main_grave_type_mm" model="grave_type.list">-->
+            <!--<field name="name">Mini Mausoleum</field>-->
+        <!--</record>-->
+
+        <record id="main_dimension_1" model="oi.dimension">
+            <field name="name">1m x 2.5m</field>
+        </record>
+        <record id="main_dimension_2" model="oi.dimension">
+            <field name="name">2m x 5m</field>
+        </record>
+        <record id="main_dimension_3" model="oi.dimension">
+            <field name="name">4m x 5m</field>
+        </record>
+        <record id="main_dimension_4" model="oi.dimension">
+            <field name="name">4m x 7.5m</field>
+        </record>
+        <record id="main_dimension_5" model="oi.dimension">
+            <field name="name">8m x 7.5m</field>
+        </record>
+        <record id="main_dimension_6" model="oi.dimension">
+            <field name="name">1m x 5m</field>
+        </record>
+
+        <!--<record id="main_no_of_lot_1" model="oi.no_of_lots">-->
+            <!--<field name="name">1</field>-->
+        <!--</record>-->
+        <!--<record id="main_no_of_lot_2" model="oi.no_of_lots">-->
+            <!--<field name="name">4</field>-->
+        <!--</record>-->
+        <!--<record id="main_no_of_lot_3" model="oi.no_of_lots">-->
+            <!--<field name="name">8</field>-->
+        <!--</record>-->
+        <!--<record id="main_no_of_lot_4" model="oi.no_of_lots">-->
+            <!--<field name="name">12</field>-->
+        <!--</record>-->
+        <!--<record id="main_no_of_lot_5" model="oi.no_of_lots">-->
+            <!--<field name="name">24</field>-->
+        <!--</record>-->
+
+        <record id="main_casket_size_1" model="oi.casket_sizes">
+            <field name="name">Standard</field>
+        </record>
+        <record id="main_casket_size_2" model="oi.casket_sizes">
+            <field name="name">Extra Large</field>
+        </record>
+
+        <record id="main_prog_lang_1" model="oi.program_lang">
+            <field name="name">English</field>
+        </record>
+        <record id="main_prog_lang_2" model="oi.program_lang">
+            <field name="name">Tagalog</field>
+        </record>
+
+        <!--usab temporarily finish na-->
+        <!--<record id="agent_hierarchy_1" model="agent.hierarchy">-->
+            <!--<field name="name">Sales Agent</field>-->
+            <!--<field name="comm_percent">12</field>-->
+        <!--</record>-->
+        <!--<record id="agent_hierarchy_2" model="agent.hierarchy">-->
+            <!--<field name="name">Unit Manager</field>-->
+            <!--<field name="comm_percent">3</field>-->
+        <!--</record>-->
+        <!--<record id="agent_hierarchy_3" model="agent.hierarchy">-->
+            <!--<field name="name">Agency Manager</field>-->
+            <!--<field name="comm_percent">5</field>-->
+        <!--</record>-->
+        <!--<record id="agent_hierarchy_4" model="agent.hierarchy">-->
+            <!--<field name="name">Collector</field>-->
+            <!--<field name="comm_percent">0</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

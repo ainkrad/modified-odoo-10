@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="customer_ledger_report_paperformat_custom" model="report.paperformat">
+            <field name="name">customer ledger</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">279</field>
+            <field name="page_width">210</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">300</field>
+        </record>
+
+        <report
+                id="customer_ledger_report"
+                model="account.invoice"
+                report_type="qweb-pdf"
+                string="Customer Ledger"
+                name="brdc_inventory.customer_ledger_view"
+                file="brdc_inventory.customer_ledger"
+                paperformat="customer_ledger_report_paperformat_custom"
+                menu="True"
+        />
+
+        <template id="customer_ledger_view" >
+            <t t-call="report.html_container">
+                <!--<t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="d" >
+                    <div class="page">
+                        <style type="text/css">
+                            div {
+                            //border:1px solid;
+                            padding:2 px;
+                            }
+                            table {
+                            width:100%;
+                            page-break-inside:auto;
+                            font-size: 12px;
+                            }
+                            .ulo {
+                            display:table;
+                            width:100%;
+                            height:100px;
+                            font-size: 13px;
+                            }
+                            .l_img {
+                            display: table-cell;
+                            }
+                            .c_cont {
+                            display: table-cell;
+                            }
+                            .c_cont h5 {
+                            text-align:center;
+                            font-weight:bold;
+                            margin-bottom:0px;
+                            }
+                            .c_cont p {
+                            text-align:center;
+                            font-size:10px;
+                            margin-top:0px;
+                            }
+                            .r_img {
+                            display: table-cell;
+                            }
+                            .tthead h5 {
+                            font-weight: bold;
+                            margin-bottom:0px;
+                            }
+                            .tthead  h5,p{
+                            text-align: center;
+                            }
+                            .parent_infhead {
+                            display: table;
+                            width: 100%;
+                            font-size: 12px;
+                            }
+                            .r_infhead ,.l_infhead{
+                            display: table-cell;
+                            width:50%;
+                            }
+                            .thead th{
+                            //text-align:center;
+                            padding:2 2 2 0 px;
+                            }
+                            .l_align {
+                            text-align:left;
+                            }
+                            .r_align {
+                            text-align:right;
+                            }
+                            .c_align {
+                            text-align:center;
+                            }
+                            tr {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            }
+                            td {
+                            page-break-inside:avoid;
+                            page-break-after:auto;
+                            padding:1 1 1 0 px;
+                            margin:1 px;
+                            }
+                            tbody tr:first-child {
+                            border-top: 2px solid ;
+                            border-bottom: 2px solid ;
+                            }
+                            tbody tr:last-child {
+                            border-top: 2px solid ;
+                            }
+                            .bord_bold {
+                            border-bottom:1 px solid;
+                            border-top:1 px solid;
+                            font-weight: bold;
+                            }
+                            .l_bold {
+                            text-align:left;
+                            font-weight: bold;
+                            }
+                            .r_bold {
+                            text-align:right;
+                            font-weight: bold;
+                            }
+                            .b_up {
+                            border-top:1 px solid;
+                            }
+
+                            tfoot tr:first-child {
+                            border-top: 2px solid ;
+                            }
+                            //.footer {
+                            //width:100%;
+                            //height:100px;
+                            //}
+                        </style>
+                        <!--<div class="ulo">-->
+                            <!--&lt;!&ndash;<div class="r_img">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<img src='/img/montecielo.jpg'/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--<div class="c_cont">-->
+                                <!--&lt;!&ndash;<h5>MONTECIELO ETERNAL GARDENS</h5>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<p>3rd Floor, Vensu Building, National Highway Gen. Santos City<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;Tel no. (083)554-3853; Mobile Phone No. 0922-821-5081<br/>&ndash;&gt;-->
+                                <!--&lt;!&ndash;email - safe_biocielo@yahoo.com</p>&ndash;&gt;-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;<div class="l_img">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<img src='/img/biocielo.png' />&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                        <!--</div>-->
+                        <div class="tthead">
+                            <h5>CUSTOMER LEDGER</h5>
+                            <p>As of <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')"/></p>
+                        </div>
+                        <div class="parent_infhead">
+                            <div class="l_infhead">
+                                PA No: <span style="font-weight: bold;" t-field="d.pa_ref"/><br/>
+                                Product Purchased: <span t-field="d.invoice_line_ids.name"/><br/>
+                                Contract Price: <span t-field="d.amount_total"/><br/>
+                                Amortization Start: <span t-esc="datetime.datetime.strptime(d.date_invoice, '%Y-%m-%d').strftime('%B %d,%Y')"/><br/>
+                                <!--Monthly Due: <span style="font-weight: bold;"></span>-->
+                                <!--<br/>-->
+                                <!--<br/>-->
+                            </div>
+                            <div class="r_infhead r_align">
+                                Customer Name: <span style="font-weight: bold;" t-field="d.partner_id.name"/><br/>
+                                Address: <span t-field="d.partner_id.street"/>, <span t-field="d.partner_id.barangay_id.name"/>, <span t-field="d.partner_id.municipality_id.name"/><br/>
+                                Sales Agent: <span t-field="d.agent_id.name"/><br/>
+
+                            </div>
+                        </div>
+                        <div class="tb_cont">
+                            <table class="table table-condensed">
+                                <tr class="thead">
+                                    <th class="l_align">Date Due</th>
+                                    <th class="l_align">Date Paid</th>
+                                    <th class="l_align">Reference</th>
+                                    <th>Particular</th>
+                                    <th class="r_align">Payment</th>
+                                    <th class="c_align">Balance</th>
+                                </tr>
+                                <br></br>
+                                <!--<tr>-->
+                                    <!--<td class="l_align"><span t-field="d.date_invoice"/></td>-->
+                                    <!--<td class="l_align"><span t-field="d.origin"/></td>-->
+                                    <!--<td class="l_align"><span t-field="d.invoice_line_ids.name"/></td>-->
+                                    <!--<td class="c_align"><span t-field="d.currency_id.symbol" /> <span t-field="d.invoice_line_ids.price_unit"/></td>-->
+                                    <!--<td class="r_align"><span></span></td>-->
+                                    <!--<td class="r_align"><span t-field="d.amount_total"/></td>-->
+                                <!--</tr>-->
+
+                                <t t-set="i_dp_l" t-value="0"/>
+                                <tr t-foreach="d.InvoiceInstallmentLineDP_ids" t-as="i" >
+                                    <t t-if="i.is_paid==True">
+                                        <t t-if="i.beginning_balance!=0">
+                                            <td class="l_align"><span t-esc="datetime.datetime.strptime(i.date_for_payment, '%Y-%m-%d').strftime('%B %d,%Y')"/></td>
+                                            <td class="l_align"><span t-esc="datetime.datetime.strptime(i.date_paid, '%Y-%m-%d').strftime('%B %d,%Y')"/></td>
+                                            <td class="l_align"><span t-field="i.payment_transaction"/></td>
+                                            <td class="l_align"><span t-field="i.name"/></td>
+                                            <td class="r_align"><span t-field="d.currency_id.symbol" /> <span t-esc="'{0:,.2f}'.format(int(i.paid_amount))"/></td>
+                                            <td class="r_align"><span t-field="d.currency_id.symbol" /> <span t-esc="'{0:,.2f}'.format(int(i.ending_balance))"/></td>
+                                            <!--<t t-set="i_dp_l" t-value="i_dp_l+i.paid_amount"/>-->
+                                        </t>
+                                    </t>
+                                </tr>
+                                <t t-set="i_l" t-value="0"/>
+                                <tr t-foreach="d.InvoiceInstallmentLine_ids" t-as="i" >
+                                    <t t-if="i.is_paid==True">
+                                        <t t-if="i.beginning_balance!=0">
+                                            <!--fix customer ledger principal-->
+                                            <td class="l_align"><span t-esc="datetime.datetime.strptime(i.date_for_payment, '%Y-%m-%d').strftime('%B %d,%Y')"/></td>
+                                            <td class="l_align"><span t-esc="datetime.datetime.strptime(i.date_paid, '%Y-%m-%d').strftime('%B %d,%Y')"/></td>
+                                            <td class="l_align"><span t-field="i.payment_transaction"/></td>
+                                            <td class="l_align"><span t-field="i.name"/></td>
+                                            <td class="r_align"><span t-field="d.currency_id.symbol" /> <span t-esc="'{0:,.2f}'.format(int(i.paid_amount))"/></td>
+                                            <td class="r_align"><span t-field="d.currency_id.symbol" /> <span t-esc="'{0:,.2f}'.format(int(i.ending_balance))"/></td>
+                                            <!--<t t-set="i_l" t-value="i_l+i.paid_amount"/>-->
+                                        </t>
+                                    </t>
+                                </tr>
+
+                                <!--<t t-set="t_i" t-value="i_l+i_dp_l"/>-->
+                                <t t-set="t_i" t-value="d.amount_total - d.residual"/>
+                                <tr>
+                                    <t>
+                                        <td><span/></td>
+                                        <td ><span/></td>
+                                        <td class="r_bold" ><span >Balance   </span></td>
+                                        <td class="bord_bold c_align" > <span t-field="d.amount_total"/></td>
+                                        <!--<td class="bord_bold r_align" ><span t-field="d.currency_id.symbol" /> <span t-esc="'%.2f'% t_i"></span></td>-->
+                                        <td class="bord_bold r_align" ><span t-field="d.currency_id.symbol" /> <span t-esc="'{0:,.2f}'.format(int(t_i))"></span></td>
+                                        <td class="bord_bold r_align" ><span t-field="d.residual"/></td>
+                                    </t>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--<div class="footer">-->
+
+                        <!--</div>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+
+    </data>
+</odoo>

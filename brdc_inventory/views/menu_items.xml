@@ -1,0 +1,122 @@
+<odoo>
+    <data>
+        <menuitem id="BRDC_inventory_root" name="BRDC" web_icon="brdc_inventory,img/icon.png"/>
+
+        <menuitem id="sales_menu_categ" name="Sales" parent="BRDC_inventory_root" sequence="1"/>
+
+        <menuitem id="inventory_control_categ" name="Inventory" parent="BRDC_inventory_root" sequence="2"/>
+
+        <menuitem id="accounting_control_categ" name="Accounting" parent="BRDC_inventory_root" sequence="3"/>
+
+        <menuitem id="report_control_categ" name="Reports" parent="BRDC_inventory_root" sequence="4"/>
+
+        <menuitem id="generate_control_categ" name="Generate" parent="BRDC_inventory_root" sequence="5"/>
+
+        <menuitem id="configuration_control_categ" name="Configuration" parent="BRDC_inventory_root" sequence="6"/>
+
+        <menuitem id="inventory_configuration_control_categ" name="Inventory" parent="configuration_control_categ"/>
+
+        <menuitem id="sales_configuration_control_categ" name="Sales" parent="configuration_control_categ"/>
+
+        <menuitem id="others_configuration_control_categ" name="Others" parent="configuration_control_categ"/>
+
+        <menuitem id="interment_order_categ" name="Interment Schedule" parent="report_control_categ" action="interment_order_action2" sequence="1"/>
+
+        <menuitem id="cremation_order_categ" name="Cremation Schedule" parent="report_control_categ" action="cremation_order_action2" sequence="2"/>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="brdc_config_setting_menu" name="Settings" parent="configuration_control_categ" action="brdc_account.brdc_config_settings_action_view" sequence="1"/>
+        <!--agent commissions na giusab finish na-->
+        <!--<menuitem id="employee_commission_categ" name="Agent Commissions" parent="report_control_categ" action="employee_commission_action" sequence="3" groups="brdc_security.brdc_group_agent_comm"/>-->
+        <!--<menuitem id="employee_hierarchy_categ" name="Agent Commission Configuration" parent="sales_configuration_control_categ" action="employee_hierarchy_action"/>-->
+
+        <!--<menuitem id="group_commission_categ" name="Group Commissions" parent="report_control_categ" action="group_commission_action" sequence="3" groups="brdc_security.brdc_group_agent_comm"/>-->
+
+        <menuitem id="payment_collection_categ" name="" parent="report_control_categ" action="brdc_collection.payment_to_be_collect_action_view" sequence="4"/>
+
+        <menuitem id="cash_summary_categ" name="Daily Payment Summary" parent="report_control_categ" action="brdc_cash_count.cash_count_report_view_actions"
+                  groups="brdc_account.group_module_brdc_account_cashier" sequence="5"/>
+
+        <menuitem id="pdf_reports_categ" name="PDF Reports" parent="report_control_categ" sequence="6"/>
+
+
+        <menuitem id="area_config_categ" name="Area" parent="inventory_configuration_control_categ" action="config_area_action"/>
+
+        <menuitem id="grave_type_config_categ" name="Product Type" parent="inventory_configuration_control_categ" action="grave_type_list_action"/>
+
+        <menuitem id="dimension_config_categ" name="Dimensions" parent="inventory_configuration_control_categ" action="dimension_config_action"/>
+
+        <menuitem id="product_category_inventory_categ" name="Product Category" parent="inventory_configuration_control_categ" action="product.product_category_action_form" groups="brdc_security.brdc_group_product_category"/>
+
+        <!--<menuitem id="no_of_lots_config_categ" name="Number of Lots" parent="configuration_control_categ" action="no_of_lot_config_action"/>-->
+
+        <menuitem id="casket_sizes_config_categ" name="Casket Sizes" parent="others_configuration_control_categ" action="casket_sizes_config_action"/>
+
+        <menuitem id="program_lang_config_categ" name="Program Languages" parent="others_configuration_control_categ" action="program_lang_config_action"/>
+
+
+        <menuitem id="customer_menu_categ" name="Customers" parent="sales_menu_categ" action="loan_application.customer_action" sequence="1"/>
+
+        <menuitem id="sale_order_quotation_menu_categ" name="Quotations" parent="sales_menu_categ" action="brdc_account.sale_order_quotation" sequence="2"
+        groups="brdc_security.brdc_group_quotation"
+        />
+
+        <menuitem id="sale_order_sales_orders_menu_categ" name="Sales Orders" parent="sales_menu_categ" action="brdc_account.sale_order_sales_orders" sequence="3"
+        groups="brdc_security.brdc_group_saleorder"
+        />
+
+        <menuitem id="pricelist_inventory_categ" name="Pricelists" parent="sales_menu_categ" action="product.product_pricelist_action2" groups="brdc_security.brdc_group_pricelist"/>
+
+        <menuitem id="payment_config_categ" name="Payment Configuration" parent="sales_configuration_control_categ" action="loan_information.payment_config" sequence=""
+                  groups=""/>
+        <menuitem id="cash_count_config_categ" name="Cash Count Configuration" parent="sales_configuration_control_categ" action="brdc_cash_count.cash_count_action_view" sequence=""/>
+
+
+        <menuitem id="product_inventory_categ" name="Product" parent="inventory_control_categ" action="product.product_template_action_all"/>
+        <!--<menuitem id="product_inventory_categ" name="Product" parent="inventory_control_categ" action="inherited_product_template_action"/>-->
+
+        <!--<menuitem id="lot_serial_inventory_categ" name="Lots / Vaults / Niches" parent="inventory_control_categ" action="stock.action_production_lot_form"/>-->
+        <menuitem id="lot_serial_inventory_categ" name="Lots / Vaults / Niches" parent="inventory_control_categ" action="inherited_stock_production_lot_action"/>
+
+        <menuitem id="inventory_adjustments_inventory_categ" name="Inventory Adjustments" parent="inventory_control_categ" action="stock.action_inventory_form"/>
+
+        <menuitem id="all_transfer_categ" name="All Transfers" parent="inventory_control_categ" sequence="2" action="stock.action_picking_tree_all" groups="stock.group_stock_manager,stock.group_stock_user"/>
+
+        <menuitem id="lot_generator_handler_id" action="lot_generator_handler_view_action"
+                  parent="generate_control_categ" name="Lot / Niche Generator" groups="brdc_security.brdc_group_generator"/>
+
+        <menuitem id="or_series_config_categ" name="OR Series Assignment" parent="generate_control_categ" action="brdc_account.or_series_config_action" sequence="" groups="brdc_security.brdc_group_or_series"/>
+
+        <menuitem id="general_aging_handler_id" action="general_aging_handler_view_action"
+                  parent="pdf_reports_categ" name="Aging of Receivables" groups="brdc_security.brdc_group_generate_aging"/>
+
+
+
+        <!-- bok  -->
+        <menuitem id="account_invoice_action_view_inherit_menu" name="Customer Invoices" parent="sales_menu_categ" action="account.action_invoice_tree1" sequence="" groups="brdc_security.brdc_group_invoice"/>
+        <menuitem id="change_request_action_view_inherit_menu" name="Change Requests" parent="sales_menu_categ" action="brdc_account.account_transfer_action_view" sequence=""/>
+        <menuitem id="generate_daily_collectibles_menu_id" name="Daily Collectibles" parent="generate_control_categ" action="brdc_account.daily_collection_action_view" sequence=""/>
+
+        <!--<menuitem id="account_invoice_form_categ" parent="accounting_control_categ" sequence="1" action="sale.account_invoice_form" />-->
+
+        <!--<menuitem id="collector_area_id" action="collector_area_action"-->
+                  <!--parent="generate_control_categ" name="Collector Area designation"/>-->
+
+        <menuitem id="general_aging_categ" name="Aging of Receivables" parent="report_control_categ" action="general_aging_of_receivables_action" groups="brdc_security.brdc_group_generate_aging"/>
+
+        <!-- This Menu Item Must have a parent -->
+        <menuitem id="sold_lots_per_categ" name="Sold Lots" parent="report_control_categ" action="sold_lot_per_action" sequence="" groups="brdc_security.brdc_group_generate_sold_lots"/>
+        <menuitem action="account.action_account_payments" id="brdc_payment_view_menu" parent="sales_menu_categ" sequence="20" groups="account.group_account_user"/>
+
+        <!--<menuitem id="pricelist_inventory_categ" name="Pricelists" parent="configuration_control_categ" action="product.product_pricelist_action2"/>-->
+
+        <!--<menuitem id="attribute_values_inventory_categ" name="Product Attribute" parent="configuration_control_categ" action="product.variants_action"/>-->
+
+        <!--<menuitem id="eipp_interest_config_categ" name="EIPP Interest" parent="configuration_control_categ" action="eipp_interest_config_action"/>-->
+
+        <!--<menuitem id="area_serial_config_categ" name="Blocks per lot" parent="configuration_control_categ" action="config_area_serial_action"/>-->
+
+
+
+    </data>
+</odoo>

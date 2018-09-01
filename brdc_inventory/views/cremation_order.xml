@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <record id="cremation_order_tree" model="ir.ui.view">
+            <field name="name">Cremation Order</field>
+            <field name="model">cremation.order</field>
+            <field name="arch" type="xml">
+                <tree string="Cremation Schedule" create="false">
+                    <!--<field>OR Number</field>-->
+                    <!--<field name="departed_id"/>-->
+                    <field name="or_id"/>
+                    <field name="cremation_date"/>
+                    <field name="release_type"/>
+                    <!--<field name="lot_owner"/>-->
+                </tree>
+            </field>
+        </record>
+
+        <record id="cremation_order_form" model="ir.ui.view">
+            <field name="name">cremation order</field>
+            <field name="model">cremation.order</field>
+            <field name="arch" type="xml">
+                <form string="Cremation Schedule">
+                    <header>
+                        <button name="action_draft" type="object"
+                                string="Reset to draft"
+                                states="confirmed,done"/>
+                        <button name="action_confirm" type="object"
+                                string="Confirm" states="draft"
+                                class="oe_highlight"/>
+                        <button name="action_done" type="object"
+                                string="Mark as done" states="confirmed"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet string="Cremation Schedule">
+                        <group>
+                            <field name="or_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                                   attrs="{'readonly':True}"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="cremation_date"/>
+                                <field name="release_type"/>
+                            </group>
+                            <group>
+                                <field name="date_cremated"/>
+                                <field name="informant_id"/>
+                            </group>
+                        </group>
+                        <field name="deceased_id" widget="many2many" attrs="{'readonly':[('state', '!=', 'confirmed')]}">
+                            <tree>
+                                <field name="departed_id"/>
+                                <field name="date_of_death"/>
+                                <field name="date_of_birth"/>
+                                <field name="religion"/>
+                                <field name="n_of_interment"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="cremation_order_action" model="ir.actions.act_window">
+            <field name="name">cremation order action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cremation.order</field>
+            <field name="view_mode">form,tree</field>
+            <field name="context">{'default_or_id': active_id}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+        <record id="cremation_order_action2" model="ir.actions.act_window">
+            <field name="name">Cremation Schedule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cremation.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

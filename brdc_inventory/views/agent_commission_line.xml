@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="agent_commission_line_form" model="ir.ui.view">
+            <field name="name">Agent commission</field>
+            <field name="model">agent.commission.line</field>
+            <field name="arch" type="xml">
+                <form string="Agent Commission">
+                    <sheet>
+                        <field name="name"/>
+                        <group>
+                            <group>
+                                <field name="invoice_id"/>
+                                <field name="date_paid"/>
+                            </group>
+                            <group>
+                                <field name="date_distributed"/>
+                            </group>
+                        </group>
+                        <group col="3">
+                            <group>
+                                <field name="sa_percentage"/>
+                            </group>
+                            <group>
+                                <field name="um_percentage"/>
+                            </group>
+                            <group>
+                                <field name="am_percentage"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

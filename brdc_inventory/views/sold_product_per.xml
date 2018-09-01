@@ -1,0 +1,57 @@
+<odoo>
+    <data>
+        <record id="sold_lot_per_tree" model="ir.ui.view">
+            <field name="name">Sold Lots</field>
+            <field name="model">sold.lots</field>
+            <field name="arch" type="xml">
+                <tree string="Sold Lots">
+                    <!--<field name="sold_product_filter"/>-->
+                    <field name="product_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sold_lot_per_form" model="ir.ui.view">
+            <field name="name">Sold Lots</field>
+            <field name="model">sold.lots</field>
+            <field name="arch" type="xml">
+                <form string="Sold Lots">
+                    <sheet>
+                        <group>
+                            <group>
+                                <!--<field name="sold_product_filter"/>-->
+                                <field name="from_date"/>
+                                <field name="product_id"/>
+                            </group>
+                            <group>
+                                <field name="to_date"/>
+                                <!--<field name="per_month"/>-->
+                                <!--<field name="per_year"/>-->
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="print_sold_lot_per_report"
+                                    string="Print"
+                                    type="object"
+                                    class="btn-primary"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sold_lot_per_action" model="ir.actions.act_window">
+            <field name="name">Sold Lots</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sold.lots</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+    </data>
+</odoo>

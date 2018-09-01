@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="general_aging_report_paperformat_custom" model="report.paperformat">
+            <field name="name">legal custom</field>
+            <field name="default" eval="True"/>
+            <field name="format">custom</field>
+            <field name="page_height">330</field>
+            <field name="page_width">215</field>
+            <field name="orientation">Landscape</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">15</field>
+            <field name="margin_right">15</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+            <field name="dpi">300</field>
+        </record>
+
+        <report
+                id="general_aging_report"
+                model="general.aging"
+                string="Aging of Receivable"
+                report_type="qweb-pdf"
+                name="brdc_inventory.general_aging_view"
+                file="brdc_inventory.general_aging_view"
+                paperformat="general_aging_report_paperformat_custom"
+        />
+
+        <!--menu="True"-->
+
+        <template id="general_aging_view" >
+            <t t-call="report.html_container">
+                <!--<t t-call="report.internal_layout">-->
+                <t t-foreach="docs" t-as="r">
+                    <div class="page">
+                        <style type="text/css">
+
+                            div {
+                            //border:1px solid;
+                            padding:2 px;
+                            }
+                            table {
+                            width:100%;
+                            page-break-inside:auto;
+                            table-layout: fixed;
+                            }
+                            .ulo {
+                            width:100%;
+                            }
+                            .ulo h6{
+                            text-align:center;
+                            font-weight:bold;
+                            margin-bottom: 1px;
+                            margin-top: 0px;
+                            }
+                            .tb_main th,td{
+                            //border:1 px solid;
+                            }
+                            .thead {
+                            border-top:2px solid;
+                            border-bottom:2px solid;
+                            border-left:2px solid;
+                            border-right:2px solid;
+                            }
+                            .thead th{
+                            border:1 px solid;
+                            text-align:center;
+                            font-size: 10px;
+                            padding:2 2 2 2 px;
+                            }
+                            .tcont_b td{
+                            border:1 px solid;
+                            }
+                            .tcont td {
+                            padding:2 2 2 2 px;
+                            }
+                            .l_align {
+                            text-align:left;
+                            }
+                            .r_align {
+                            text-align:right;
+                            }
+                            .c_align {
+                            text-align:center;
+                            }
+                            .f_a {
+                            font-size: 12 px;
+                            }
+                            .f_b {
+                            font-size: 11 px;
+                            }
+                            .f_c {
+                            font-size: 10 px;
+                            }
+                            .b_t {
+                            font-weight:bold;
+                            }
+                            .cp_w {
+                            width: 11%;
+                            }
+                            .pa_w {
+                            width: 4%;
+                            }
+                            .l_c_w {
+                            width: 7%;
+                            }
+                            .r_c_w {
+                            width: 7%;
+                            }
+                            .l_s_w {
+                            width: 2%;
+                            }
+                            .r_s_w {
+                            width: 3%;
+                            }
+                            .a_w {
+                            width: 4%;
+                            }
+                            .b_w {
+                            width: 6%;
+                            }
+                        </style>
+                        <div class="ulo">
+                            <h6 class="no_mar_bel">BIOCIELO REALTY AND DEVELOPMENT CORPORATION</h6>
+                            <h6 class="w_mar_bel">AGING OF RECEIVABLES</h6>
+                            <!--<p>As of <spapn t-esc="datetime.datetime.strptime(r.aging_date_from, '%m/%d/%d).strftime('%d/%m/%Y')"/> </p>-->
+                            <h6>As of <span t-field="r.aging_date_from"  t-options='{"format": "MMMM d, y"}'/> </h6>
+                            <!--<span t-esc="context_timestamp(datetime.datetime.now()).strftime('%B %d, %Y')"/>-->
+                        </div>
+                        <div class="tb_cont">
+                            <table class="tb_main table table-condensed">
+                                <tr class="thead">
+                                    <th class="f_a r_s_w">NO.</th>
+                                    <th class="f_a">Customer Name</th>
+                                    <th class="f_a">PA Number</th>
+                                    <th class="f_a">Date Start</th>
+                                    <th class="f_a">Contract Price</th>
+                                    <th class="f_a">Payment</th>
+                                    <th class="f_a">Balance</th>
+                                    <th class="f_a">Due</th>
+                                    <th class="f_a">Current</th>
+                                    <th class="f_a">1-<span t-esc="r.period_length"/> days</th>
+                                    <th class="f_a"><span t-esc="r.period_length + 1"/>-<span t-esc="r.period_length * 2"/> days</th>
+                                    <th class="f_a"><span t-esc="(r.period_length * 2) + 1"/>-<span t-esc="r.period_length * 3"/> Days</th>
+                                    <th class="f_a"><span t-esc="(r.period_length * 3) + 1"/> Days Over</th>
+                                    <th class="f_a">Days Due</th>
+                                </tr>
+                                <!--<tr>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--</tr>-->
+                                <t t-set="c" t-value="1"/>
+                                <t t-set="cp_total" t-value="0"/>
+                                <t t-set="p_total" t-value="0"/>
+                                <t t-set="b_total" t-value="0"/>
+                                <t t-set="td_total" t-value="0"/>
+                                <t t-set="cd_total" t-value="0"/>
+                                <t t-set="ot_total" t-value="0"/>
+                                <t t-set="ts_total" t-value="0"/>
+                                <t t-set="sn_total" t-value="0"/>
+                                <t t-set="no_total" t-value="0"/>
+
+                                <t t-foreach="recs" t-as="d">
+                                    <tr class="tcont tcont_b">
+                                        <td class="c_align f_b l_s_w"><span t-esc="c"/></td>
+                                        <td class="l_align f_b cp_w"><span t-field="d.partner_name"/></td>
+                                        <td class="r_align f_b a_w"><span t-field="d.pa_ref"/></td>
+                                        <td class="c_align f_b a_w"><span t-field="d.date_start"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.contract_price"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.principal_payment"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.balance"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.total_due_payment"/></td>
+                                        <td class="r_align f_b l_c_w"><span t-esc="d.current_due_payment"/></td>
+                                        <td class="r_align f_b r_c_w"><span t-if="d.o_to_t == 0"><span>-   </span></span><span t-if="d.o_to_t != 0"><span t-esc="d.o_to_t"/></span></td>
+                                        <td class="r_align f_b r_c_w"><span t-if="d.t_to_s == 0"><span>-   </span></span><span t-if="d.t_to_s != 0"><span t-esc="d.t_to_s"/></span></td>
+                                        <td class="r_align f_b r_c_w"><span t-if="d.s_to_n == 0"><span>-   </span></span><span t-if="d.s_to_n != 0"><span t-esc="d.s_to_n"/></span></td>
+                                        <td class="r_align f_b r_c_w"><span t-if="d.n_a_o == 0"><span>-   </span></span><span t-if="d.n_a_o != 0"><span t-esc="d.n_a_o"/></span></td>
+                                        <td class="r_align f_b r_s_w"><span t-esc="d.lpdc"/></td>
+                                    </tr>
+
+                                    <t t-set="c" t-value="c+1"/>
+                                    <t t-set="cp_total" t-value="cp_total+d.contract_price"/>
+                                    <t t-set="p_total" t-value="p_total+d.principal_payment"/>
+                                    <t t-set="b_total" t-value="b_total+d.balance"/>
+                                    <t t-set="td_total" t-value="td_total+d.total_due_payment"/>
+                                    <t t-set="cd_total" t-value="cd_total+d.current_due_payment"/>
+                                    <t t-set="ot_total" t-value="ot_total+d.o_to_t"/>
+                                    <t t-set="ts_total" t-value="ts_total+d.t_to_s"/>
+                                    <t t-set="sn_total" t-value="sn_total+d.s_to_n"/>
+                                    <t t-set="no_total" t-value="no_total+d.n_a_o"/>
+                                </t>
+                                <!--<tr>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--<td class="l_align f_b"><span><![CDATA[&nbsp;]]></span></td>-->
+                                <!--</tr>-->
+                                <tr class="tcont tcont_b">
+                                    <td class="l_align f_b l_s_w "><span/></td>
+                                    <td class="l_align f_b b_t cp_w"><span>TOTAL</span></td>
+                                    <td class="l_align f_b a_w"><span/></td>
+                                    <td class="l_align f_b a_w"><span/></td>
+                                    <td class="r_align f_b l_c_w"><span t-esc="cp_total"/></td>
+                                    <td class="r_align f_b l_c_w"><span t-esc="p_total"/></td>
+                                    <td class="r_align f_b l_c_w"><span t-esc="b_total"/></td>
+                                    <td class="r_align f_b l_c_w"><span t-esc="td_total"/></td>
+                                    <td class="r_align f_b l_c_w"><span t-esc="cd_total"/></td>
+                                    <td class="r_align f_b r_c_w"><span t-esc="ot_total"/></td>
+                                    <td class="r_align f_b r_c_w"><span t-esc="ts_total"/></td>
+                                    <td class="r_align f_b r_c_w"><span t-esc="sn_total"/></td>
+                                    <td class="r_align f_b r_c_w"><span t-esc="no_total"/></td>
+                                    <td class="r_align f_b r_s_w"><span><![CDATA[&nbsp;]]></span></td>
+                                </tr>
+                            </table>
+                            <br/>
+                        </div>
+                        <!--usab temporarily-->
+                        <!--<table style="border-collapse:collapse">-->
+                            <!--<tr>-->
+                                <!--<td class="l_align f_c b_t"><span>PREPARED BY:</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>NOTED BY:</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>VALIDATED BY:</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>RECOMMENDED FOR APPROVAL BY:</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>APPROVED BY:</span></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="l_align"><span><br/> </span></td>-->
+                                <!--<td class="l_align"><span><br/> </span></td>-->
+                                <!--<td class="l_align"><span><br/> </span></td>-->
+                                <!--<td class="l_align"><span><br/> </span></td>-->
+                                <!--<td class="l_align"><span><br/> </span></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="l_align f_c b_t"><span>JEMAR M. DELMO</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>PHM-MHA ANAROSA G. MANGURAMAS</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>CHRISSA BRASILEÑO</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>DON CARLO S. DOMANTAY</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>MARIA ROSARIO S. CHIU</span></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                                <!--<td class="l_align f_c b_t"><span>C&amp;C SUPERVISOR - BRDC</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>GENERAL MANAGER - BRDC</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>ACCTG. HEAD NON-MC</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>PORTFOLIO AND INVESTMENTS HEAD</span></td>-->
+                                <!--<td class="l_align f_c b_t"><span>PRESIDENT</span></td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    </div>
+                </t>
+
+            </t>
+        </template>
+
+        <!--<record id="general_aging_report" model="ir.actions.report.xml">-->
+        <!--<field name="name">general aging report</field>-->
+        <!--<field name="type">ir.actions.report.xml</field>-->
+        <!--<field name="res_model"></field>-->
+        <!--&lt;!&ndash;<field name="view_mode">tree,form</field>&ndash;&gt;-->
+        <!--&lt;!&ndash;<field name="help" type="html">&ndash;&gt;-->
+        <!--&lt;!&ndash;<p class="oe_view_nocontent_create">&ndash;&gt;-->
+        <!--&lt;!&ndash; Add Text Here &ndash;&gt;-->
+        <!--&lt;!&ndash;</p><p>&ndash;&gt;-->
+        <!--&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;-->
+        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+        <!--&lt;!&ndash;</field>&ndash;&gt;-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; This Menu Item must have a parent and an action &ndash;&gt;-->
+        <!--<menuitem id="general_aging_menu" name="Aged Recievables" parent="inventory_control_categ" action="general_aging_report" />-->
+    </data>
+</odoo>

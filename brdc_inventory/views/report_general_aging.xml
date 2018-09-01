@@ -1,0 +1,52 @@
+<odoo>
+    <data>
+        <record id="general_aging_handler_view_form" model="ir.ui.view">
+            <field name="name">General Aging Report</field>
+            <field name="model">general.aging_handler</field>
+            <field name="arch" type="xml">
+                <form string="General Aging Report">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="aging_date_from"/>
+                                <field name="filter_per"/>
+                            </group>
+                            <group>
+                                <field name="period_length" required="True"/>
+                                <field name="prod_sel" attrs="{'invisible':[('filter_per','!=','prod')]}"/>
+                                <field name="collector_sel" attrs="{'invisible':[('filter_per','!=','area')]}" domain="[('agency_id.name','=','Collector')]"/>
+                                <field name="area_list" widget="many2many_tags" attrs="{'invisible':[('filter_per','!=','area')]}"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button name="print_general_aging_report"
+                                        string="Print"
+                                        type="object"
+                                        class="btn-primary"/>
+
+                            <button name="print_general_aging_cd_report"
+                                        string="Print (calendar days)"
+                                        type="object"
+                                        class="btn-primary"/>
+
+                            <button string="Cancel" special="cancel" class="btn-default"/>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="general_aging_handler_view_action" model="ir.actions.act_window">
+            <field name="name">General Aging Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">general.aging_handler</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+			<field name="target">new</field>
+        </record>
+
+        <!--<menuitem id="general_aging_handler_id" action="general_aging_handler_view_action"-->
+                  <!--parent="pdf_reports_categ" name="Aging of Receivables"/>-->
+
+    </data>
+</odoo>

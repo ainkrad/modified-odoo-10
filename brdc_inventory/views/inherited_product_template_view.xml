@@ -1,0 +1,160 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherited_product_template_view" model="ir.ui.view">
+            <field name="name">inherited product template view</field>
+            <field name="model">product.template</field>
+            <!--<field name="model">product.brdc.template</field>-->
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <!--<field name="mode">primary</field>-->
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='default_code']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='type']" position="replace">
+                    <field name="type" default_focus="1"/>
+                </xpath>
+                <xpath expr="//field[@name='purchase_method']" position="replace">
+                </xpath>
+                <xpath expr="//field[@name='categ_id']" position="replace">
+                    <field name="categ_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+
+                </xpath>
+                <!--<xpath expr="//field[@name='tracking']" position="replace">-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='list_price']" position="before">
+                    <field name="no_of_lot" attrs="{'invisible':[('type','!=','product')]}"/>
+                           <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>-->
+                </xpath>
+
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="default_code" />
+                </xpath>
+
+                <xpath expr="//label[@for='purchase_ok']" position="after">
+                    <br/>
+                    <field name="installable_product"/>
+                    <label for="installable_product"/>
+                    <br/>
+                    <field name="has_pcf"/>
+                    <label for="has_pcf"/>
+                </xpath>
+
+                <xpath expr="//field[@name='categ_id']" position="after">
+                    <field name="area_number" attrs="{'invisible':[('type','!=','product')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    <field name="dimension" attrs="{'invisible':[('type','!=','product')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    <field name="level" placeholder="Fill this up only for CVs and Columbary Vaults" attrs="{'invisible':[('type','!=','product')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    <field name="grave_type" attrs="{'invisible':True}"/>
+                    <field name="interment_service_type" attrs="{'invisible':[('type','!=','service')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                </xpath>
+                <!--<xpath expr="//page[@name='general_information']" position="after">-->
+                    <!--<page string="Other Information">-->
+                        <!--<group>-->
+                            <!--<group>-->
+                                <!--<field name="dimension"/>-->
+                            <!--</group>-->
+                            <!--<group>-->
+                                <!--<field name="no_of_lot"/>-->
+                            <!--</group>-->
+                        <!--</group>-->
+                    <!--</page>-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="string">Selling Price</attribute>
+                </xpath>
+                <!--<xpath expr="//page[@name='variants']" position="attributes">-->
+                <!--<attribute name="string">Other Information</attribute>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='barcode']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='weight']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='weight']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='volume']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='volume']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='taxes_id']" position="after">
+                    <field name="pcf_account_id" attrs="{'required': [('has_pcf', '=', True)], 'invisible': [('has_pcf', '=', False)]}"/>
+                </xpath>
+
+                <!--<xpath expr="//label[@for='purchase_method']" position="attributes">-->
+                <!--<attribute name="invisible">[('purchase_ok','=','True')]</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='purchase_ok']" position="attributes">-->
+                <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//label[@for='purchase_ok']" position="attributes">-->
+                <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='standard_price']" position="attributes">-->
+                <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//label[@for='standard_price']" position="attributes">-->
+                <!--<attribute name="invisible">1</attribute>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+
+
+        <!--<record id="inherited_product_template_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Products</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">product.template</field>-->
+            <!--<field name="context">{'group_by':'categ_id'}</field>-->
+            <!--<field name="view_mode">kanban,tree,form</field>-->
+            <!--<field name="help" type="html">-->
+              <!--<p class="oe_view_nocontent_create">-->
+                <!--&lt;!&ndash; Add Text Here &ndash;&gt;-->
+              <!--</p><p>-->
+                <!--&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;-->
+              <!--</p>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="inherited_product_template_kanban_stock" model="ir.ui.view">-->
+        <!--<field name="name">Inherited Product Template Kanban Stock</field>-->
+        <!--<field name="model">product.template</field>-->
+        <!--<field name="inherit_id" ref="stock.product_template_kanban_stock_view"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//div[@class='oe_kanban_details']" position="replace">-->
+        <!--<div class="oe_kanban_details">-->
+        <!--<strong>-->
+        <!--<span t-if="record.default_code.value">[<field name="default_code"/>]</span>-->
+        <!--<field name="name"/>-->
+        <!--</strong>-->
+        <!--<div t-if="record.product_variant_count.value &gt; 1" groups="product.group_product_variant">-->
+        <!--<strong>-->
+        <!--<t t-esc="record.product_variant_count.value"/> Variants-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--<div name="tags"/>-->
+        <!--<ul>-->
+        <!--<li>Price: <field name="lst_price" widget="monetary"/></li>-->
+        <!--</ul>-->
+        <!--<div name="tags"/>-->
+        <!--</div>-->
+        <!--</xpath>-->
+        <!--&lt;!&ndash;<xpath expr="//field[@name='qty_available']" position="replace">&ndash;&gt;-->
+        <!--&lt;!&ndash;</xpath>&ndash;&gt;-->
+        <!--&lt;!&ndash;<kanban position="attributes">&ndash;&gt;-->
+        <!--&lt;!&ndash;<attribute name="qty_available">1</attribute>&ndash;&gt;-->
+        <!--&lt;!&ndash;&lt;!&ndash;<attribute name="quick_create">false</attribute>&ndash;&gt;&ndash;&gt;-->
+        <!--&lt;!&ndash;</kanban>&ndash;&gt;-->
+        <!--</field>-->
+        <!--</record>-->
+    </data>
+</odoo>

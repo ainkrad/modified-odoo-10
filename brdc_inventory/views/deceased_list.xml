@@ -1,0 +1,65 @@
+<odoo>
+    <data>
+        <record id="deceased_list_tree" model="ir.ui.view">
+            <field name="name">Deceased Tree</field>
+            <field name="model">deceased.list</field>
+            <field name="arch" type="xml">
+                <tree string="Deceased">
+                    <field name="departed_id" />
+                    <field name="date_of_death"/>
+                    <field name="date_of_birth"/>
+                    <field name="n_of_interment"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="deceased_list_view" model="ir.ui.view">
+            <field name="name">Deceased Form</field>
+            <field name="model">deceased.list</field>
+            <field name="arch" type="xml">
+                <form string="Deceased">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="interment_id" attrs="{'invisible': True}"/>
+                                <field name="departed_id" domain="[('is_deceased','=', False)]"/>
+                            </group>
+                            <group>
+                                <field name="religion" attrs="{'readonly':True}"/>
+                            </group>
+                            <group>
+                                <field name="date_of_death"/>
+                            </group>
+                            <group>
+                                <field name="date_of_birth"/>
+                            </group>
+                            <group>
+                                <field name="n_of_interment"/>
+                            </group>
+                            <group>
+                                <field name="cause_of_death"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="deceased_list_action" model="ir.actions.act_window">
+            <field name="name">Deceased Action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">deceased.list</field>
+            <field name="context">{'search_default_interment_id': active_id}</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,11 @@
+<odoo>
+    <data>
+        <menuitem id="agent_commission_categ" name="Agent Commissions" parent="brdc_inventory.report_control_categ" action="agent_commission_action" sequence="3" groups="brdc_security.brdc_group_agent_comm"/>
+        <menuitem id="distribute_agent_commission_categ" name="Distribute Agent Commission" parent="brdc_inventory.report_control_categ" sequence="4" action="distribute_agent_commission_action" groups="brdc_security.brdc_group_distribute_commission"/>
+
+        <menuitem id="agent_hierarchy_categ" name="Agents" parent="brdc_inventory.sales_configuration_control_categ" action="agent_hierarchy_action" groups="brdc_account.group_module_brdc_account_admin"/>
+
+        <menuitem id="commission_distributed_handler_categ" action="commission_distributed_handler_action"
+                      parent="brdc_inventory.pdf_reports_categ" name="Commissions Distributed" groups="brdc_security.brdc_group_distribute_commission"/>
+    </data>
+</odoo>

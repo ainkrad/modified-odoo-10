@@ -1,0 +1,143 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="resource_kanban_view">
+            <field name="name">inherited kanban production lot form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="type">kanban</field>
+            <field name="arch" type="xml">
+                <kanban edit="false" quick_create="false">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_resource_vignette">
+                                <div class="oe_resource_image">
+                                    <a type="edit"><img t-att-src="kanban_image('object.name', 'photo', record.id.value)" class="oe_resource_picture"/></a>
+                                </div>
+                                <div class="oe_resource_details">
+                                    <ul>
+                                        <!--Here you have to write the object's field name which you want to display in kanban view -->
+                                       <li><field name="name"/></li>
+                                       <li><field name="status"/></li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherited_view_production_lot_form" model="ir.ui.view">
+            <field name="name">inherited view production lot form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='main_group']/group" position="before">
+                    <group>
+                        <field name="block_number" default_focus="1"/>
+                        <field name="lot_number"  />
+                        <!--<field name="status" attrs="{'readonly':False}"/>-->
+                        <field name="status" attrs="{'readonly':True}"/>
+                        <field name="allowable_interment" attrs="{'invisible':True}"/>
+                    </group>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[1]" position="before">
+                    <page string="Policy Holder Information">
+                        <group col="3">
+                            <group>
+                                <field name="pa_ref" attrs="{'readonly': True}"/>
+                                <field name="sale_order_id" attrs="{'readonly':True}"/>
+                                <!--<field name="pol_stat"/>-->
+                            </group>
+                            <group>
+                                <field name="loanee_id" attrs="{'invisible':True}"/>
+                                <field name="loanee_name" attrs="{'readonly':True}"/>
+                                <field name="loanee_payment_term" attrs="{'readonly':True}"/>
+                            </group>
+                            <group>
+                                <field name="currency_id" invisible="True"/>
+                                <field name="loanee_selling_price" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}"
+                                       attrs="{'readonly':True}"/>
+                                <field name="loanee_contract_price" widget="monetary"
+                                       options="{'currency_field': 'currency_id'}" />
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[2]" position="before">
+                    <page string="Purchased Interment Services">
+                        <!--<group>-->
+                        <field name="eipp_transaction_id" string="Sales Order"
+                               attrs="{'readonly':True}">
+                            <tree>
+                                <field name="message_needaction" invisible="1"/>
+                                <field name="name" string="Order Number"/>
+                                <field name="date_order"/>
+                                <field name="partner_id"/>
+                                <field name="product_type"/>
+                                <field name="purchase_term"/>
+                                <field name="prod_id"/>
+                                <field name="lot_id"/>
+                                <field name="user_id"/>
+                                <field name="amount_total" sum="Total Tax Included" widget="monetary"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="invoice_status"/>
+                                <field name="is_used"/>
+                                <field name="state" invisible="1"/>
+                            </tree>
+                        </field>
+                        <!--</group>-->
+                    </page>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[3]" position="before">
+                    <page string="Interment Information">
+                        <field name="interred_person" widget="many2many">
+                            <tree create="false">
+                                <!--<field name="departed_id"/>-->
+                                <!--<field name="date_of_death"/>-->
+                                <!--<field name="cause_of_death"/>-->
+                                <field name="or_id"/>
+                                <field name="deceased" string="Deceased"/>
+                                <field name="d_of_d" string="Date of Death"/>
+                                <field name="interment_td" string="Interment Date"/>
+                                <field name="c_of_d" string="Cause of Death"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <xpath expr="//sheet/notebook/page[4]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='product_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//label[@for='product_qty']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="inherited_stock_production_lot_action" model="ir.actions.act_window">
+            <field name="name">Lots / Vaults / Niches</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.production.lot</field>
+            <field name="context">{'group_by':'status'}</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>
+    </data>
+</odoo>

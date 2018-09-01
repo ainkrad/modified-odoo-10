@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="grave_type_list_tree" model="ir.ui.view">
+            <field name="name">Product Type</field>
+            <field name="model">grave_type.list</field>
+            <field name="arch" type="xml">
+                <tree string="Grave Types">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="grave_type_list_view" model="ir.ui.view">
+            <field name="name">Product Type</field>
+            <field name="model">grave_type.list</field>
+            <field name="arch" type="xml">
+                <form string="Grave Types">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="grave_type_list_action" model="ir.actions.act_window">
+            <field name="name">Product Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">grave_type.list</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->Add Types Here
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+              </p>
+            </field>
+        </record>c
+    </data>
+</odoo>

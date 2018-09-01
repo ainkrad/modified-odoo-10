@@ -1,0 +1,180 @@
+<odoo>
+    <data>
+
+        <!--<record id="inherited_sale_order_tree" model="ir.ui.view">-->
+        <!--<field name="name">inherited sale order tree</field>-->
+        <!--<field name="model">sale.order</field>-->
+        <!--<field name="inherit_id" ref="sale.view_order_tree"/>-->
+        <!--<field name="arch" type="xml">-->
+
+        <!--<xpath expr="//field[@name='invoice_status']" position="after">-->
+        <!--<field name="is_used"/>-->
+        <!--</xpath>-->
+
+        <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="interment_order_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Interment Order</field>-->
+        <!--<field name="type">ir.actions.act_window</field>-->
+        <!--<field name="res_model">interment.order2</field>-->
+        <!--<field name="target">new</field>-->
+        <!--<field name="context">{'search_default_or_id': active_id}</field>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="help" type="html">-->
+        <!--<p class="oe_view_nocontent_create">-->
+        <!--&lt;!&ndash; Add Text Here &ndash;&gt;-->
+        <!--</p><p>-->
+        <!--&lt;!&ndash; More details about what a user can do with this object will be OK &ndash;&gt;-->
+        <!--</p>-->
+        <!--</field>-->
+        <!--</record>-->
+
+
+        <record id="inherited_sale_order_line_tree" model="ir.ui.view">
+            <field name="name">inherited sale order line tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+                    <field name="product_id"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/>
+                    <!--temporary from BOK-->
+                    <!--domain="[('type','=', parent.product_type.category)]"/>-->
+                </xpath>
+
+                <xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="lot_id"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           domain="[('product_id.type','=','product'), ('product_id','=',product_id),('status','=','av')]"/>
+                </xpath>
+
+                <xpath expr="//field[@name='validity_date']" position="after">
+                    <!--<field name="team_id"/>-->
+                    <!--<field name="show_fields_bool" invisible="True"/>-->
+                    <field name="is_lot" invisible="True"/>
+                    <field name="is_interment" invisible="True"/>
+                    <field name="is_mm" invisible="True"/>
+                    <field name="is_crematory" invisible="True"/>
+                    <field name="is_columbary" invisible="True"/>
+                    <field name="is_cv" invisible="True"/>
+                    <field name="prod_id"
+                           attrs="{'invisible':[('is_interment', '!=', True)],'required':[('is_interment', '=', True)],'readonly':[('state','!=','draft')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           domain="[('type','=', 'product')]"/>
+                    <field name="lot_id"
+                           attrs="{'invisible':[('is_interment', '!=', True)],'required':[('is_interment', '=', True)],'readonly':[('state','!=','draft')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           domain="[('status','not in', ['av', 'wit', 'fi', 'ter']),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>
+                    <!--domain="[('loanee_id','=', partner_id),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>-->
+
+                    <field name="prod_id2"
+                           attrs="{'invisible':[('is_mm', '!=', True)],'required':[('is_mm', '=', True),('is_bundle','=',True)],'readonly':[('state','!=','draft')]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           domain="[('type','=', 'product')]"/>
+                    <field name="lot_id2"
+                           attrs="{'invisible':[('is_mm', '!=', True)],'required': False,'readonly':[('is_bundle','!=',True)]}"
+                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           domain="[('status','=','av'),('product_id','=', prod_id2), ('allowable_interment','&gt;', 0)]"/>
+
+                    <!--<field name="prod_id"-->
+                    <!--attrs="{'invisible':['|',('show_fields_bool', '=', True),('is_bundle','!=',False)],'required':False,'readonly':[('state','!=','draft')]}"-->
+                    <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                    <!--domain="[('type','=', 'product')]"/>-->
+                    <!--<field name="lot_id"-->
+                    <!--attrs="{'invisible':['|',('show_fields_bool', '=', True),('is_bundle','!=',False)],'required':False,'readonly':[('state','!=','draft')]}"-->
+                    <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                    <!--domain="[('status','not in', ['av', 'wit', 'fi', 'ter']),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>-->
+                    <!--&lt;!&ndash;domain="[('loanee_id','=', partner_id),('product_id','=', prod_id), ('allowable_interment','&gt;', 0)]"/>&ndash;&gt;-->
+
+                    <!--<field name="prod_id2"-->
+                    <!--attrs="{'invisible':['|',('show_fields_bool', '=', True),('is_bundle','!=',True)],'required':[('show_fields_bool', '=', True),('is_bundle','=',True)],'readonly':[('state','!=','draft')]}"-->
+                    <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                    <!--domain="[('type','=', 'product')]"/>-->
+                    <!--<field name="lot_id2"-->
+                    <!--attrs="{'invisible':['|',('show_fields_bool', '=', True),('is_bundle','!=',True)],'required': False,'readonly':[('is_bundle','!=',True)]}"-->
+                    <!--options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'-->
+                    <!--domain="[('status','=','av'),('product_id','=', prod_id2), ('allowable_interment','&gt;', 0)]"/>-->
+                    <!--[('product_type','=','service'),('is_bundle','=',True)]-->
+                </xpath>
+
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="agent_id" options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'
+                           attrs="{'required':False, 'readonly':[('state', '=', 'sale')]}"/>
+                    <!--attrs="{'required':['|', ('product_type','=','product'),'&amp;',('product_type','=','service'),('is_bundle','=',True)]}"/>-->
+                </xpath>
+
+                <!--<xpath expr="/form/sheet/notebook/page[2]/group/group[1]/field[@name='user_id']" position="before">-->
+                <!--usab pa no-->
+                <!--<xpath expr="//field[@name='name']" position="after">-->
+                    <!--<field name="pa_ref" placeholder="PA No." attrs="{'required':False, 'readonly':[('state', '=', 'sale')]}"/>-->
+                <!--</xpath>-->
+
+                <!--<xpath expr="/form/sheet/notebook/page/field[@name='order_line']/tree/field[@name='lot_id']" position="replace">-->
+                <!--<field name="lot_id" />-->
+                <!--</xpath>-->
+
+
+                <div name="button_box" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(interment_order_action)d"
+                            icon="fa-pencil-square"
+                            attrs="{'invisible':['|',('is_interment','!=',True),'|',('invoice_count', '=', 0),('inter_button', '=', 1)]}">
+                        <field string="Interments" name="inter_button" widget="statinfo"/>
+                    </button>
+                </div>
+                <div name="button_box" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(cremation_order_action)d"
+                            icon="fa-pencil-square"
+                            attrs="{'invisible':['|',('is_crematory','!=',True),'|',('invoice_count', '=', 0),('inter_button', '=', 1)]}">
+                        <field string="Schedule Cremation" name="inter_button" widget="statinfo"/>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <record id="inherited_sale_order_quotation_tree" model="ir.ui.view">
+            <field name="name">inherited sale order quotation tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//field[@name='name']" position="before">-->
+                    <!--&lt;!&ndash; Add new fields here &ndash;&gt;-->
+                    <!--<field name="pa_ref" groups="brdc_account.module_brdc_account"/>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <!-- Add new fields here -->
+                    <field name="product_type"/>
+                    <field name="purchase_term"/>
+                    <field name="prod_id"/>
+                    <field name="lot_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="inherited_sale_order_tree" model="ir.ui.view">
+            <field name="name">inherited sale order tree</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+
+                <!--<xpath expr="//field[@name='name']" position="before">-->
+                    <!--&lt;!&ndash; Add new fields here &ndash;&gt;-->
+                    <!--<field name="pa_ref"/>-->
+                <!--</xpath>-->
+
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <!-- Add new fields here -->
+                    <field name="product_type"/>
+                    <field name="purchase_term"/>
+                    <field name="prod_id"/>
+                    <field name="lot_id"/>
+                </xpath>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

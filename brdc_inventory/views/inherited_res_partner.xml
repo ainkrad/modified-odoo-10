@@ -1,0 +1,18 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherited_res_partner_form" model="ir.ui.view">
+            <field name="name">inherited res partner form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="loan_application.view_partner_form_7"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//notebook/page[3]/group/group[2]" position="inside">
+                    <!-- Add your fields or attributes here -->
+                    <field name="collector_area_id" widget="many2many_tags" attrs="{'invisible': [('is_co','=',False)]}"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>
