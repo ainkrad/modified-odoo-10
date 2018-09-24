@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <menuitem id="brdc_inventory_root" name="BRDC Products" sequence="" groups=""/>
+        <menuitem id="brdc_product_menu" name="Products" parent="brdc_inventory_root" action="brdc_product_action" sequence=""/>
+        <menuitem id="brdc_stock_production_lot_menu" name="Lot / Vaults / Niches" parent="brdc_inventory_root" action="brdc_stock_production_lot_action" sequence=""/>
+        <menuitem id="brdc_stock_inventory_line_menu" name="Inventory Adjustments" parent="brdc_inventory_root" action="stock.action_inventory_form" sequence=""/>
+    </data>
+</odoo>

@@ -1,0 +1,43 @@
+<odoo>
+    <data>
+        <record id="brdc_stock_production_lot_form" model="ir.ui.view">
+            <field name="name">BRDC Stock production lot form</field>
+            <field name="model">brdc.stock.production.lot</field>
+            <field name="arch" type="xml">
+                <form string="BRDC Stocks">
+                    <sheet>
+                        <field name="name"/>
+                        <group>
+                            <group>
+                                <field name="block_number"/>
+                                <field name="lot_number"/>
+                                <field name="status" attrs="{'readonly':True}"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="product_qty"/>
+                                <field name="ref"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="brdc_stock_production_lot_action" model="ir.actions.act_window">
+            <field name="name">BRDC Stock production lot action</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">brdc.stock.production.lot</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item Must have a parent -->
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="module_brdc_inventory" model="ir.module.category">
+            <field name="name">BRDC</field>
+            <field name="visible" eval="0" />
+            <!--<field name="groups">base.group_no_one</field>-->
+        </record>
+
+    </data>
+</odoo>
